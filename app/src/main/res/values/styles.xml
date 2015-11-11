@@ -1,11 +1,22 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <!--<declare-styleable name="PostItem">-->
+    <!--<attr name="score" format="integer"/>-->
+    <!--<attr name="author" format="string" />-->
+    <!--<attr name="subreddit" format="string"/>-->
+    <!--<attr name="titlepost" format="string"/>-->
+    <!--<attr name="commentcount" format="integer"/>-->
+    <!--<attr name="domain" format="string"/>-->
+    <!--<attr name="createdutc" format="integer"/>-->
+    <!--<attr name="isSticky" format="boolean"/>-->
+    <!--</declare-styleable>-->
 
 </resources>
