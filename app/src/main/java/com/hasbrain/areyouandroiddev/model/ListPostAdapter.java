@@ -14,18 +14,20 @@ import java.util.List;
 
 public class ListPostAdapter extends ArrayAdapter<RedditPost> {
     private static final String TAG = "ListPostAdapter";
-    private static final int TYPECOUNT = 2, DEFAULT_ITEM = 0, BOTTOM_ITEM = 1;
+    private static final int TYPE_COUNT = 2, DEFAULT_ITEM = 0, BOTTOM_ITEM = 1;
 
     LayoutInflater inflater;
     List<RedditPost> mPostList;
     boolean[] animationStates;
+    boolean isLandscape;
 
-    public ListPostAdapter(Context context) {
-        this(context, null);
+    public ListPostAdapter(Context context, boolean isLandscape) {
+        this(context, isLandscape, null);
     }
 
-    public ListPostAdapter(Context context, List<RedditPost> postList) {
+    public ListPostAdapter(Context context, boolean isLandscape, List<RedditPost> postList) {
         super(context, 0);
+        this.isLandscape = isLandscape;
         this.inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         setPostList(postList);
@@ -43,14 +45,19 @@ public class ListPostAdapter extends ArrayAdapter<RedditPost> {
             rowview.findViewById(R.id.view_clickable).setOnClickListener(mViewClickListener);
 
             if (type == DEFAULT_ITEM) {
-                TextView tv = (TextView) rowview.findViewById(R.id.tv_content);
-                tv.setText(Utils.HtmlFactory(data));
-                rowview.setTag(tv);
+                final ViewHolder viewHolder = new ViewHolder(
+                        (TextView) rowview.findViewById(R.id.tv_score),
+                        (TextView) rowview.findViewById(R.id.tv_author_subreddit),
+                        (TextView) rowview.findViewById(R.id.tv_title),
+                        (TextView) rowview.findViewById(R.id.tv_comment_domain_createdutc)
+                );
+
+                rowview.setTag(viewHolder);
             }
 
-            int ttH = totalHeight(parent);
+            int sumHeight = sumChildrenHeight(parent);
 
-            if (!animationStates[position] && ttH <= parent.getHeight()) {
+            if (!isLandscape && !animationStates[position] && sumHeight <= parent.getHeight()) {
                 animationStates[position] = true;
                 rowview.animate().alpha(0).translationYBy(80f).setDuration(0).start();
                 rowview.animate().alpha(1).translationYBy(-80f).setDuration(800)
@@ -59,9 +66,26 @@ public class ListPostAdapter extends ArrayAdapter<RedditPost> {
                                 0 : position * 200)
                         .start();
             }
-        } else if (type == DEFAULT_ITEM) {
-            TextView tv = (TextView) rowview.getTag();
-            tv.setText(Utils.HtmlFactory(data));
+        }
+
+        if (type == DEFAULT_ITEM && data != null) {
+            ViewHolder viewHolder = (ViewHolder) rowview.getTag();
+            viewHolder.score.setText(data.getScore() + "");
+            viewHolder.author.setText(Utils.buildAuthorAndSubredditText(
+                    data.getAuthor(),
+                    data.getSubreddit(),
+                    isLandscape
+            ));
+            viewHolder.title.setText(Utils.buildTitleText(
+                    data.getTitle(),
+                    data.isStickyPost(),
+                    isLandscape
+            ));
+            viewHolder.comment.setText(Utils.buildCommentDomainCreatedtimeText(
+                    data.getCommentCount(),
+                    data.getDomain(),
+                    data.getCreatedUTC()
+            ));
         }
 
         rowview.findViewById(R.id.view_clickable).setTag(position);
@@ -88,7 +112,7 @@ public class ListPostAdapter extends ArrayAdapter<RedditPost> {
 
     @Override
     public int getViewTypeCount() {
-        return TYPECOUNT;
+        return TYPE_COUNT;
     }
 
     public void setPostList(List<RedditPost> mPostList) {
@@ -102,7 +126,19 @@ public class ListPostAdapter extends ArrayAdapter<RedditPost> {
         return mPostList;
     }
 
-    int totalHeight(ViewGroup v) {
+
+    private class ViewHolder {
+        TextView score, author, title, comment;
+
+        public ViewHolder(TextView core, TextView author, TextView title, TextView comment) {
+            this.score = core;
+            this.author = author;
+            this.title = title;
+            this.comment = comment;
+        }
+    }
+
+    int sumChildrenHeight(ViewGroup v) {
         int total = 0;
         for (int i = 0; i < v.getChildCount(); i++)
             total += v.getChildAt(i).getHeight();
@@ -112,11 +148,12 @@ public class ListPostAdapter extends ArrayAdapter<RedditPost> {
     private View.OnClickListener mViewClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (mOnItemClick != null) {
+            if (mOnItemClick != null) {  //// CALLBACK
                 int position = (int) v.getTag();
                 final RedditPost data = getItem(position);
-                final String url = data == null ? inflater.getContext().getString(R.string.def_url) : data.getUrl();
-                mOnItemClick.onItemClick(position, url);
+                final String url = (data == null) ?
+                        inflater.getContext().getString(R.string.def_url) : data.getUrl();
+                mOnItemClick.onItemClick(url);
             }
         }
     };
@@ -127,7 +164,4 @@ public class ListPostAdapter extends ArrayAdapter<RedditPost> {
         this.mOnItemClick = mOnItemClick;
     }
 
-    public interface OnItemClick {
-        void onItemClick(int position, String url);
-    }
 }

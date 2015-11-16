@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="200dp"
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -14,11 +14,12 @@
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         card_view:cardCornerRadius="4dp"
+        card_view:cardBackgroundColor="#181818"
         card_view:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="130dp"
             android:padding="10dp"
             android:orientation="vertical">
 
@@ -28,22 +29,23 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_author_subreddit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:layout_gravity="center_vertical"
+                    android:text="AutoModorator"
+                    android:textSize="12sp"
+                    android:textColor="#24657B" />
+
+                <TextView
                     android:id="@+id/tv_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:text="99"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tv_author_subreddit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:text="AutoModorator in androidDev"
-                    android:textSize="10sp" />
+                    android:textSize="18sp"
+                    android:textColor="#6E6E6E" />
             </LinearLayout>
 
 
@@ -53,7 +55,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="I opened an issue in the Dagger repo to provide an example a bit more relatable than coffee brewing."
-                android:textColor="?android:textColorPrimary" />
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:textColor="#ffffff" />
 
             <TextView
                 android:id="@+id/tv_comment_domain_createdutc"
@@ -61,10 +65,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="69 comments • self.androiddev • 2 day ago"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:textColor="#6E6E6E" />
 
         </LinearLayout>
-
 
     </android.support.v7.widget.CardView>
 </LinearLayout>

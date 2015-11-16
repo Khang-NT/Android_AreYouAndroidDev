@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Jupiter (vu.cao.duy@gmail.com) on 10/9/15.
  */
-public class PostInSectionActivity extends PostListActivity {
+public class PostInSectionActivity extends BasePostListActivity {
 
     @Override
     protected void displayPostList(List<RedditPost> postList) {
