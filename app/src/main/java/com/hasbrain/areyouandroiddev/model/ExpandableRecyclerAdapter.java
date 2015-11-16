@@ -115,6 +115,8 @@ public class ExpandableRecyclerAdapter extends BaseExpandableRecyclerAdapter {
         super.onGroupCollapsed(groupView, groupId);
         if (groupId != getGroupCount() - 1)
             groupView.findViewById(R.id.devider).setVisibility(View.VISIBLE);
+        else
+            callback.onItemClick(groupView.getContext().getString(R.string.def_url));
     }
 
     @Override
@@ -122,13 +124,15 @@ public class ExpandableRecyclerAdapter extends BaseExpandableRecyclerAdapter {
         super.onGroupExpanded(groupView, groupId);
         if (groupId != getGroupCount() - 1)
             groupView.findViewById(R.id.devider).setVisibility(View.INVISIBLE);
+        else
+            callback.onItemClick(groupView.getContext().getString(R.string.def_url));
     }
 
     @Override
     protected void onGroupItemClicked(View itemView, int groupId, int childId) {
         super.onGroupItemClicked(itemView, groupId, childId);
         RedditPost data = listDataChild.get(groupName.get(groupId)).get(childId);
-        if (data != null && callback != null)
+        if (data != null)
             callback.onItemClick(data.getUrl());
     }
 
