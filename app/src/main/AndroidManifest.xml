@@ -22,13 +22,15 @@
             android:label="@string/post_view_name" />
         <activity
             android:name=".PostInSectionActivity"
-            android:label="@string/post_list_in_section_name" />
+            android:label="@string/post_list_in_section_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PostListRecyclerViewActivity"
             android:label="@string/postlist_recyclerview_title" />
         <activity
             android:name=".PostListInSectionRecyclerActivity"
-            android:label="@string/post_list_in_section_with_recyclerview" />
+            android:label="@string/post_list_in_section_with_recyclerview"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
