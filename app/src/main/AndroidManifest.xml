@@ -17,7 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PostViewActivity" />
+        <activity
+            android:name=".PostViewActivity"
+            android:label="@string/post_view_name" />
+        <activity
+            android:name=".PostInSectionActivity"
+            android:label="@string/post_list_in_section_name" />
     </application>
 
 </manifest>

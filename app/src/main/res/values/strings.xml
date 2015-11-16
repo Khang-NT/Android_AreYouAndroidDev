@@ -2,4 +2,7 @@
     <string name="app_name">AreYouAndroidDev</string>
     <string name="more_posts">See more interesting posts about Android development at https://www.reddit.com/r/androiddev</string>
     <string name="def_url">https://www.reddit.com/r/androiddev</string>
+    <string name="post_list_in_section_name">Postlist in section</string>
+    <string name="use_recyclerview">Use RecyclerView</string>
+    <string name="post_view_name">Post View</string>
 </resources>

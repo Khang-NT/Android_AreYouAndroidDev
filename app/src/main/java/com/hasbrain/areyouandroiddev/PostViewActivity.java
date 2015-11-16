@@ -33,6 +33,11 @@ public class PostViewActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Loading...", Toast.LENGTH_SHORT).show();
                     return false;
                 }
+
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    setTitle(view.getTitle());
+                }
             });
             wv.loadUrl(url);
         }
