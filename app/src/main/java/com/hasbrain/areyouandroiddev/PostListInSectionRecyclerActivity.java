@@ -1,12 +1,10 @@
 package com.hasbrain.areyouandroiddev;
 
-import android.content.Intent;
 import android.os.Handler;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ExpandableListView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
-import com.hasbrain.areyouandroiddev.model.ListPostInSectionAdapter;
+import com.hasbrain.areyouandroiddev.model.ExpandableRecyclerAdapter;
 import com.hasbrain.areyouandroiddev.model.RedditPost;
 
 import java.util.ArrayList;
@@ -14,12 +12,12 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Jupiter (vu.cao.duy@gmail.com) on 10/9/15.
+ * Created by Khang (khang.neon.1997@gmail.com) on 16/11/2015.
  */
-public class PostInSectionActivity extends BasePostListActivity {
+public class PostListInSectionRecyclerActivity extends BasePostListActivity {
     private static final String STICKY_HEADER = "Sticky posts", NORMAL_HEADER = "Normal posts", BOTTOM = "bottom";
 
-    private ListPostInSectionAdapter mAdapter;
+    private ExpandableRecyclerAdapter mAdapter;
 
     @Override
     protected void assignView() {
@@ -28,14 +26,21 @@ public class PostInSectionActivity extends BasePostListActivity {
         headerNames.add(STICKY_HEADER);
         headerNames.add(NORMAL_HEADER);
         headerNames.add(BOTTOM);
-        mAdapter = new ListPostInSectionAdapter(this, headerNames, null, this);
+        mAdapter = new ExpandableRecyclerAdapter(headerNames, null, this);
     }
 
     @Override
     protected void initView() {
         super.initView();
-        ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.elv_explandablelist);
-        expandableListView.setAdapter(mAdapter);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_post_in_section_recyclerview;
     }
 
     @Override
@@ -55,11 +60,6 @@ public class PostInSectionActivity extends BasePostListActivity {
     }
 
     @Override
-    protected int getLayoutResource() {
-        return R.layout.activity_post_in_section;
-    }
-
-    @Override
     public void onRefresh() {
         super.onRefresh();
         new Handler().postDelayed(new Runnable() {
@@ -68,18 +68,5 @@ public class PostInSectionActivity extends BasePostListActivity {
                 mRefreshLayout.setRefreshing(false);
             }
         }, 1000);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.post_in_section, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(this, PostListInSectionRecyclerActivity.class);
-        startActivity(intent);
-        return super.onOptionsItemSelected(item);
     }
 }

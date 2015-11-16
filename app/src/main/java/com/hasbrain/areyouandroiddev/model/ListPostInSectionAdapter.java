@@ -27,7 +27,10 @@ public class ListPostInSectionAdapter extends BaseExpandableListAdapter implemen
                                     @NonNull OnItemClick callback) {
         this.context = context;
         this.groupName = groupName;
-        this.listDataChild = listDataChild;
+        if (listDataChild != null)
+            this.listDataChild = listDataChild;
+        else
+            this.listDataChild = new HashMap<>();
         this.callback = callback;
     }
 

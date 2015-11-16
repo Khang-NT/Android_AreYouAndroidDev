@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="140dp"
         android:background="#3F51B5"
+        android:foreground="?android:attr/selectableItemBackground"
         android:text="@string/more_posts"
         android:textSize="14sp"
         android:textColor="@android:color/white"

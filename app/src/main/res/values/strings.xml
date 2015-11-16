@@ -6,4 +6,5 @@
     <string name="use_recyclerview">Use RecyclerView</string>
     <string name="post_view_name">Post View</string>
     <string name="postlist_recyclerview_title">Post list with RecyclerView</string>
+    <string name="post_list_in_section_with_recyclerview">PostList in section with RecyclerView</string>
 </resources>

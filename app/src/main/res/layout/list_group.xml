@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_clickable"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:foreground="?android:attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/lblListHeader"
@@ -10,5 +12,13 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:textSize="20sp"
-        android:textColor="?android:textColorPrimary" />
+        android:textColor="?android:textColorPrimary"
+        android:text="Group" />
+
+    <View
+        android:id="@+id/devider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#2d000000"
+        android:visibility="invisible" />
 </LinearLayout>
