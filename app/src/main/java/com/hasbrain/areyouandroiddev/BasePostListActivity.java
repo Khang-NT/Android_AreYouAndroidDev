@@ -2,6 +2,7 @@ package com.hasbrain.areyouandroiddev;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.CallSuper;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -24,7 +25,7 @@ public class BasePostListActivity extends AppCompatActivity implements SwipeRefr
 
     protected SwipeRefreshLayout mRefreshLayout;
 
-
+    @CallSuper
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,10 +70,12 @@ public class BasePostListActivity extends AppCompatActivity implements SwipeRefr
         return R.layout.activity_post_list;
     }
 
+    @CallSuper
     protected void assignView() {
         mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.refreshLayout);
     }
 
+    @CallSuper
     protected void initView() {
         mRefreshLayout.setOnRefreshListener(this);
     }
