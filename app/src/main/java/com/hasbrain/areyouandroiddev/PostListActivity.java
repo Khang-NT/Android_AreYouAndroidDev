@@ -31,8 +31,7 @@ public class PostListActivity extends BasePostListActivity {
         super.assignView();
         isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
-        mAdapter = new ListPostAdapter(this, isLandscape);
-        mAdapter.setOnItemClick(this);
+        mAdapter = new ListPostAdapter(this, isLandscape, this);
     }
 
     @Override
