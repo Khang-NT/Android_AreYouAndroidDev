@@ -80,6 +80,8 @@ public class PostListActivity extends BasePostListActivity {
                 startActivity(intent);
                 break;
             case R.id.use_recyclerview:
+                intent = new Intent(this, PostListRecyclerViewActivity.class);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
