@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.hasbrain.areyouandroiddev.model.ExpandableRecyclerAdapter;
+import com.hasbrain.areyouandroiddev.adapter.ExpandableRecyclerAdapter;
 import com.hasbrain.areyouandroiddev.model.RedditPost;
 
 import java.util.ArrayList;

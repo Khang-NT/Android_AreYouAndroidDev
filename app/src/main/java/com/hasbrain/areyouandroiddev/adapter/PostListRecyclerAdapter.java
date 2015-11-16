@@ -1,4 +1,4 @@
-package com.hasbrain.areyouandroiddev.model;
+package com.hasbrain.areyouandroiddev.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.hasbrain.areyouandroiddev.R;
+import com.hasbrain.areyouandroiddev.model.OnItemClick;
+import com.hasbrain.areyouandroiddev.model.RedditPost;
+import com.hasbrain.areyouandroiddev.model.Utils;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.ListView;
 
-import com.hasbrain.areyouandroiddev.model.ListPostAdapter;
+import com.hasbrain.areyouandroiddev.adapter.ListPostAdapter;
 import com.hasbrain.areyouandroiddev.model.RedditPost;
 
 import java.util.List;

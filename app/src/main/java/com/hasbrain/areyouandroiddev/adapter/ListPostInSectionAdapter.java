@@ -1,4 +1,4 @@
-package com.hasbrain.areyouandroiddev.model;
+package com.hasbrain.areyouandroiddev.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,6 +9,9 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.hasbrain.areyouandroiddev.R;
+import com.hasbrain.areyouandroiddev.model.OnItemClick;
+import com.hasbrain.areyouandroiddev.model.RedditPost;
+import com.hasbrain.areyouandroiddev.model.Utils;
 
 import java.util.HashMap;
 import java.util.List;

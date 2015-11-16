@@ -1,4 +1,4 @@
-package com.hasbrain.areyouandroiddev.model;
+package com.hasbrain.areyouandroiddev.adapter;
 
 import android.widget.TextView;
 

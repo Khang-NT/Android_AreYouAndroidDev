@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ExpandableListView;
 
-import com.hasbrain.areyouandroiddev.model.ListPostInSectionAdapter;
+import com.hasbrain.areyouandroiddev.adapter.ListPostInSectionAdapter;
 import com.hasbrain.areyouandroiddev.model.RedditPost;
 
 import java.util.ArrayList;

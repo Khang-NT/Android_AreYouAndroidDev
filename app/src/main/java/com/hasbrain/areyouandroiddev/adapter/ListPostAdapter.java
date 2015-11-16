@@ -1,4 +1,4 @@
-package com.hasbrain.areyouandroiddev.model;
+package com.hasbrain.areyouandroiddev.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,6 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.hasbrain.areyouandroiddev.R;
+import com.hasbrain.areyouandroiddev.adapter.ViewHolder;
+import com.hasbrain.areyouandroiddev.model.OnItemClick;
+import com.hasbrain.areyouandroiddev.model.RedditPost;
+import com.hasbrain.areyouandroiddev.model.Utils;
 
 import java.util.List;
 
