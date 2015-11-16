@@ -1,8 +1,11 @@
 package com.hasbrain.areyouandroiddev;
 
+import android.content.Intent;
 import android.content.res.Configuration;
-import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.ListView;
 
@@ -15,11 +18,6 @@ public class PostListActivity extends BasePostListActivity {
 
     private ListPostAdapter mAdapter;
     private boolean isLandscape;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     protected int getLayoutResource() {
@@ -64,5 +62,26 @@ public class PostListActivity extends BasePostListActivity {
                 mRefreshLayout.setRefreshing(false);
             }
         }, 2000);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.postlistinsection:
+                intent = new Intent(this, PostInSectionActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.use_recyclerview:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
