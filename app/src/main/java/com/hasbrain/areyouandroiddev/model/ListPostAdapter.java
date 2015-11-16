@@ -1,6 +1,7 @@
 package com.hasbrain.areyouandroiddev.model;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,7 @@ import com.hasbrain.areyouandroiddev.R;
 
 import java.util.List;
 
-public class ListPostAdapter extends ArrayAdapter<RedditPost> {
+public class ListPostAdapter extends ArrayAdapter<RedditPost> implements View.OnClickListener {
     private static final String TAG = "ListPostAdapter";
     private static final int TYPE_COUNT = 2, DEFAULT_ITEM = 0, BOTTOM_ITEM = 1;
 
@@ -20,16 +21,18 @@ public class ListPostAdapter extends ArrayAdapter<RedditPost> {
     List<RedditPost> mPostList;
     boolean[] animationStates;
     boolean isLandscape;
+    OnItemClick callback;
 
-    public ListPostAdapter(Context context, boolean isLandscape) {
-        this(context, isLandscape, null);
+    public ListPostAdapter(Context context, boolean isLandscape, OnItemClick callback) {
+        this(context, isLandscape, callback, null);
     }
 
-    public ListPostAdapter(Context context, boolean isLandscape, List<RedditPost> postList) {
+    public ListPostAdapter(Context context, boolean isLandscape, @NonNull OnItemClick callback, List<RedditPost> postList) {
         super(context, 0);
         this.isLandscape = isLandscape;
         this.inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.callback = callback;
         setPostList(postList);
     }
 
@@ -42,7 +45,7 @@ public class ListPostAdapter extends ArrayAdapter<RedditPost> {
         if (rowview == null) {
             rowview = inflater.inflate(type == DEFAULT_ITEM ? R.layout.list_item : R.layout.bottom_item,
                     null);
-            rowview.findViewById(R.id.view_clickable).setOnClickListener(mViewClickListener);
+            rowview.findViewById(R.id.view_clickable).setOnClickListener(this);
 
             if (type == DEFAULT_ITEM) {
                 final ViewHolder viewHolder = new ViewHolder(
@@ -127,17 +130,6 @@ public class ListPostAdapter extends ArrayAdapter<RedditPost> {
     }
 
 
-    private class ViewHolder {
-        TextView score, author, title, comment;
-
-        public ViewHolder(TextView core, TextView author, TextView title, TextView comment) {
-            this.score = core;
-            this.author = author;
-            this.title = title;
-            this.comment = comment;
-        }
-    }
-
     int sumChildrenHeight(ViewGroup v) {
         int total = 0;
         for (int i = 0; i < v.getChildCount(); i++)
@@ -145,23 +137,12 @@ public class ListPostAdapter extends ArrayAdapter<RedditPost> {
         return total;
     }
 
-    private View.OnClickListener mViewClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (mOnItemClick != null) {  //// CALLBACK
-                int position = (int) v.getTag();
-                final RedditPost data = getItem(position);
-                final String url = (data == null) ?
-                        inflater.getContext().getString(R.string.def_url) : data.getUrl();
-                mOnItemClick.onItemClick(url);
-            }
-        }
-    };
-
-    OnItemClick mOnItemClick;
-
-    public void setOnItemClick(OnItemClick mOnItemClick) {
-        this.mOnItemClick = mOnItemClick;
+    @Override
+    public void onClick(View v) {
+        int position = (int) v.getTag();
+        final RedditPost data = getItem(position);
+        final String url = (data == null) ?
+                inflater.getContext().getString(R.string.def_url) : data.getUrl();
+        callback.onItemClick(url);
     }
-
 }
