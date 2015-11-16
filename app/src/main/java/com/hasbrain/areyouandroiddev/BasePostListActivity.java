@@ -1,7 +1,6 @@
 package com.hasbrain.areyouandroiddev;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +22,6 @@ public class BasePostListActivity extends AppCompatActivity implements SwipeRefr
 
     public static final String DATA_JSON_FILE_NAME = "data.json";
 
-    protected boolean isLandscape;
     protected SwipeRefreshLayout mRefreshLayout;
 
 
@@ -33,8 +31,6 @@ public class BasePostListActivity extends AppCompatActivity implements SwipeRefr
 
 
         setContentView(getLayoutResource());
-
-        isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
         assignView();
         initView();

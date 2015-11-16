@@ -1,5 +1,6 @@
 package com.hasbrain.areyouandroiddev;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.GridView;
@@ -13,6 +14,7 @@ import java.util.List;
 public class PostListActivity extends BasePostListActivity {
 
     private ListPostAdapter mAdapter;
+    private boolean isLandscape;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class PostListActivity extends BasePostListActivity {
     @Override
     protected void assignView() {
         super.assignView();
+        isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
         mAdapter = new ListPostAdapter(this, isLandscape);
         mAdapter.setOnItemClick(this);
