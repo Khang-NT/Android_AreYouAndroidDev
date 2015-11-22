@@ -7,13 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.hasbrain.areyouandroiddev.R;
-import com.hasbrain.areyouandroiddev.adapter.ViewHolder;
 import com.hasbrain.areyouandroiddev.model.OnItemClick;
 import com.hasbrain.areyouandroiddev.model.RedditPost;
-import com.hasbrain.areyouandroiddev.model.Utils;
 
 import java.util.List;
 
@@ -52,12 +49,7 @@ public class ListPostAdapter extends ArrayAdapter<RedditPost> implements View.On
             rowview.findViewById(R.id.view_clickable).setOnClickListener(this);
 
             if (type == DEFAULT_ITEM) {
-                final ViewHolder viewHolder = new ViewHolder(
-                        (TextView) rowview.findViewById(R.id.tv_score),
-                        (TextView) rowview.findViewById(R.id.tv_author_subreddit),
-                        (TextView) rowview.findViewById(R.id.tv_title),
-                        (TextView) rowview.findViewById(R.id.tv_comment_domain_createdutc)
-                );
+                final ViewHolder viewHolder = new ViewHolder(rowview);
 
                 rowview.setTag(viewHolder);
             }
@@ -77,22 +69,7 @@ public class ListPostAdapter extends ArrayAdapter<RedditPost> implements View.On
 
         if (type == DEFAULT_ITEM && data != null) {
             ViewHolder viewHolder = (ViewHolder) rowview.getTag();
-            viewHolder.score.setText(data.getScore() + "");
-            viewHolder.author.setText(Utils.buildAuthorAndSubredditText(
-                    data.getAuthor(),
-                    data.getSubreddit(),
-                    isLandscape
-            ));
-            viewHolder.title.setText(Utils.buildTitleText(
-                    data.getTitle(),
-                    data.isStickyPost(),
-                    isLandscape
-            ));
-            viewHolder.comment.setText(Utils.buildCommentDomainCreatedtimeText(
-                    data.getCommentCount(),
-                    data.getDomain(),
-                    data.getCreatedUTC()
-            ));
+            viewHolder.bindData(data);
         }
 
         rowview.findViewById(R.id.view_clickable).setTag(position);

@@ -2,32 +2,15 @@ package com.hasbrain.areyouandroiddev.model;
 
 import android.text.Html;
 import android.text.Spanned;
+import android.widget.TextView;
 
 import java.util.Date;
 
 public class Utils {
     private static final String STICKYCOLOR = "387801", DEFAULTBLACK = "000000", DEFAULTWHITE = "ffffff";
-    //    private static final String HTMLFormat =
-//            "<big><big><big>%d </big></big></big><font color='#0A295A'><b>%s</b></font> in <font color='#0A295A'><b>%s</b></font><br>" +
-//                    "<big><big><font color='#%s'>%s</font></big></big><br>" +
-//                    "%d Comments • %s • %s ago";
     private static final String AUTHOR_SUBREDDIT = "<font color='#0A295A'><b>%s</b></font> in <font color='#0A295A'><b>%s</b></font>";
     private static final String COMMENT_DOMAIN_CREATEDTIME = "%d Comments • %s • %s ago";
     private static final String TITLE_FORMAT = "<font color='#%s'>%s</font>";
-
-//    public static Spanned HtmlFactory(RedditPost redditPost) {
-//        final String html_str =
-//                String.format(HTMLFormat,
-//                        redditPost.getScore(),
-//                        redditPost.getAuthor(),
-//                        redditPost.getSubreddit(),
-//                        redditPost.isStickyPost() ? STICKYCOLOR : DEFAULTCOLOR,
-//                        redditPost.getTitle(),
-//                        redditPost.getCommentCount(),
-//                        redditPost.getDomain(),
-//                        getDurationString(redditPost.getCreatedUTC()));
-//        return Html.fromHtml(html_str);
-//    }
 
     public static Spanned buildTitleText(String title, boolean isStickyPost, boolean isLandscape) {
         return Html.fromHtml(String.format(TITLE_FORMAT,
@@ -58,5 +41,24 @@ public class Utils {
             return offset + " hrs";
         offset /= 24;
         return offset + " days";
+    }
+
+    public static void bindData(RedditPost data, TextView score, TextView author, TextView title, TextView comment) {
+        score.setText(data.getScore() + "");
+        author.setText(Utils.buildAuthorAndSubredditText(
+                data.getAuthor(),
+                data.getSubreddit(),
+                false
+        ));
+        title.setText(Utils.buildTitleText(
+                data.getTitle(),
+                data.isStickyPost(),
+                false
+        ));
+        comment.setText(Utils.buildCommentDomainCreatedtimeText(
+                data.getCommentCount(),
+                data.getDomain(),
+                data.getCreatedUTC()
+        ));
     }
 }

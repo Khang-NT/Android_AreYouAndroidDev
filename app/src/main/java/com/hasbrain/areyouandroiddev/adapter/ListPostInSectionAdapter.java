@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.hasbrain.areyouandroiddev.R;
 import com.hasbrain.areyouandroiddev.model.OnItemClick;
 import com.hasbrain.areyouandroiddev.model.RedditPost;
-import com.hasbrain.areyouandroiddev.model.Utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -119,34 +118,14 @@ public class ListPostInSectionAdapter extends BaseExpandableListAdapter implemen
             convertView = inflater.inflate(R.layout.list_item, null);
             convertView.findViewById(R.id.view_clickable).setOnClickListener(this);
 
-            viewHolder = new ViewHolder(
-                    (TextView) convertView.findViewById(R.id.tv_score),
-                    (TextView) convertView.findViewById(R.id.tv_author_subreddit),
-                    (TextView) convertView.findViewById(R.id.tv_title),
-                    (TextView) convertView.findViewById(R.id.tv_comment_domain_createdutc)
-            );
+            viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
 
         if (viewHolder == null)
             viewHolder = (ViewHolder) convertView.getTag();
 
-        viewHolder.score.setText(data.getScore() + "");
-        viewHolder.author.setText(Utils.buildAuthorAndSubredditText(
-                data.getAuthor(),
-                data.getSubreddit(),
-                false
-        ));
-        viewHolder.title.setText(Utils.buildTitleText(
-                data.getTitle(),
-                data.isStickyPost(),
-                false
-        ));
-        viewHolder.comment.setText(Utils.buildCommentDomainCreatedtimeText(
-                data.getCommentCount(),
-                data.getDomain(),
-                data.getCreatedUTC()
-        ));
+        viewHolder.bindData(data);
         convertView.findViewById(R.id.view_clickable).setTag(new int[]{groupPosition, childPosition});
         return convertView;
     }

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import com.hasbrain.areyouandroiddev.R;
 import com.hasbrain.areyouandroiddev.model.OnItemClick;
 import com.hasbrain.areyouandroiddev.model.RedditPost;
-import com.hasbrain.areyouandroiddev.model.Utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -47,15 +46,13 @@ public class ExpandableRecyclerAdapter extends BaseExpandableRecyclerAdapter {
             default:
                 root = inflater.inflate(R.layout.list_item, parent, false);
         }
-        return new ViewHolder(root);
+        return new ViewHolder(root, viewType != ITEMTYPEDEFAULT);
     }
 
     @Override
     public void onBindGroup(ViewHolder viewHolder, int groupId) {
         if (groupId < getGroupCount() - 1) {
-            viewHolder.findTextView(R.id.lblListHeader).setText(
-                    groupName.get(groupId)
-            );
+            viewHolder.bindData(groupName.get(groupId));
         }
     }
 
@@ -63,22 +60,7 @@ public class ExpandableRecyclerAdapter extends BaseExpandableRecyclerAdapter {
     protected void onBindChild(ViewHolder holder, int groupId, int childId) {
         RedditPost data = listDataChild.get(groupName.get(groupId)).get(childId);
         if (data != null) {
-            holder.findTextView(R.id.tv_score).setText(data.getScore() + "");
-            holder.findTextView(R.id.tv_author_subreddit).setText(Utils.buildAuthorAndSubredditText(
-                    data.getAuthor(),
-                    data.getSubreddit(),
-                    false
-            ));
-            holder.findTextView(R.id.tv_title).setText(Utils.buildTitleText(
-                    data.getTitle(),
-                    data.isStickyPost(),
-                    false
-            ));
-            holder.findTextView(R.id.tv_comment_domain_createdutc).setText(Utils.buildCommentDomainCreatedtimeText(
-                    data.getCommentCount(),
-                    data.getDomain(),
-                    data.getCreatedUTC()
-            ));
+            holder.bindData(data);
         }
     }
 

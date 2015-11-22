@@ -5,6 +5,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.hasbrain.areyouandroiddev.R;
+import com.hasbrain.areyouandroiddev.model.RedditPost;
+import com.hasbrain.areyouandroiddev.model.Utils;
+
 import java.util.HashMap;
 
 /**
@@ -152,19 +156,36 @@ public abstract class BaseExpandableRecyclerAdapter extends RecyclerView.Adapter
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         View root;
+        TextView score, author, title, comment;
 
-        public ViewHolder(View v) {
+        public ViewHolder(View v, boolean isGroup) {
             super(v);
             this.root = v;
+            if (isGroup) {
+                title = findTextView(R.id.lblListHeader);
+            } else {
+                score = findTextView(R.id.tv_score);
+                author = findTextView(R.id.tv_author_subreddit);
+                title = findTextView(R.id.tv_title);
+                comment = findTextView(R.id.tv_comment_domain_createdutc);
+            }
         }
 
-        public TextView findTextView(int id) {
+        public void bindData(RedditPost data) {
+            Utils.bindData(data, score, author, title, comment);
+        }
+
+        public void bindData(String groupTitle) {
+            title.setText(groupTitle);
+        }
+
+        private TextView findTextView(int id) {
             View v = findViewById(id);
             return v == null ?
                     null : (TextView) v;
         }
 
-        public View findViewById(int id) {
+        private View findViewById(int id) {
             return root.findViewById(id);
         }
     }
